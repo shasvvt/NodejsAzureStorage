@@ -12,7 +12,7 @@ const
 
     , { BlockBlobClient } = require('@azure/storage-blob')
     , getStream = require('into-stream')
-    , containerName = 'images'
+    , containerName = 'container1'
 ;
 
 const handleError = (err, res) => {
@@ -29,7 +29,7 @@ router.post('/', uploadStrategy, (req, res) => {
 
     const
           blobName = getBlobName(req.file.originalname)
-        , blobService = new BlockBlobClient(process.env.AZURE_STORAGE_CONNECTION_STRING,containerName,blobName)
+        , blobService = new BlockBlobClient(process.env.AZURE_STORAGE_CONNECTION_STRING,process.env.AZURE_STORAGE_CONTAINER_NAME,blobName)
         , stream = getStream(req.file.buffer)
         , streamLength = req.file.buffer.length
     ;
